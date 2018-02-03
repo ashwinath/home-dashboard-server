@@ -1,0 +1,10 @@
+module.exports = {
+    widgets: [
+        {
+            icon_path: "/static/icon",
+            title: "title",
+            desc: "description",
+            link: "link of widget",
+        },
+    ]
+}
