@@ -3,7 +3,7 @@ const vpnRouter = require('./routes/vpn')
 const widgetsRouter = require('./routes/widgets')
 
 const app = express()
-const PORT = 3000;
+const PORT = 3001;
 
 app.use('/static', express.static('public'))
 app.use('/vpn', vpnRouter)
