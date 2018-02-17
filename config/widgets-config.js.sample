@@ -5,6 +5,8 @@ module.exports = {
             title: "title",
             desc: "description",
             link: "link of widget",
+            // Sudo will not be supported
+            bash_command: "bash command"
         },
     ]
 }
