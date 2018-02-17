@@ -1,11 +1,11 @@
 const axios = require('axios')
 const express = require('express')
+const https = require('https')
 const widget_config = require('../config/widgets-config')
 const router = express.Router()
 const { exec } = require('child_process')
 
 router.get('/', (req, res) => {
-    console.log("requested widgets status")
     res.json(widget_config.widgets)
 })
 
@@ -19,7 +19,7 @@ router.get('/check-online', (req, res) => {
         }
         const { title, link } = widget
 
-        getUrlStatus(link).then(response => {
+        getUrlStatus(`https://localhost/${link}`).then(response => {
             responseObj = {
                 title: title,
                 status: true,
@@ -39,7 +39,6 @@ router.get('/check-online', (req, res) => {
 })
 
 router.post('/start', (req, res) => {
-    console.log(req.body)
     if (req.body.title) {
         widget = getWidget(req.body.title)
 
@@ -76,7 +75,11 @@ router.post('/start', (req, res) => {
 })
 
 const getUrlStatus = (link) => {
-    return axios.get(link)
+    // using self signed cert
+    const agent = new https.Agent({  
+        rejectUnauthorized: false
+    });
+    return axios.get(link, { httpsAgent: agent })
 }
 
 const invalidRequest = (res) => {

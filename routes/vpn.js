@@ -4,7 +4,6 @@ const axios = require('axios')
 const router = express.Router()
 
 const getVpn = (req, res) => {
-    console.log("requested vpn status")
     getIpInfo().then(data => {
         data['vpn_status'] = checkIfVpnExists(data)
         res.json(data)
